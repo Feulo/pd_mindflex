@@ -47,20 +47,16 @@ void handleDataValueFunc(unsigned char extendedCodeLevel, unsigned char code, un
 				outlet_float(x->out_med,(t_int) value[0]);       
                         	break;
                 	case( 0x80 ):   // raw data aki pra gente
-                       // 	rawData = (value[0]<<8) | value[1] ;
-				rawData = value[0]*256 + value[1];
+                       		rawData = value[0]*256 + value[1];
 				if( rawData >= 32768 ) rawData = rawData - 65536;
 				outlet_float(x->out,rawData);
-                        //      fp=fopen("test.raw", "a+");
-                                //fputc(rawData, fp);
-                                //fclose(fp);
-                        	break;
+                               	break;
 
 			case( 0x02 ): //agora a informação de qualidade de sinal
 			//	post( "POOR SIGNAL: %d\n", value[0] & 0xFF );
 				break;
 			case( 0x01 ):
-				post( "Battery: %d\n", value[0] & 0xFF );
+			//	post( "Battery: %d\n", value[0] & 0xFF );
 				break;
 			case(0x83):
 				for(int i=0; i<valueLength; i=i+3){
@@ -71,10 +67,7 @@ void handleDataValueFunc(unsigned char extendedCodeLevel, unsigned char code, un
 				break;
 			default:        /* Other [CODE]s */
                 		post( "EXCODE level: %d CODE: 0x%02X vLength: %d\n", extendedCodeLevel, code, valueLength );
-                        //	post( "Data value(s):" );
-                        //	for(int i=0; i<valueLength; i++ ) post( " %02X", value[i] & 0xFF );
-                        	post( "\n" );
-        	}
+                        }
 	}
 
 } 

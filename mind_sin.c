@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #define PI 3.14159265358979323846
-#define TABLE_SIZE 2048
+#define TABLE_SIZE 512 
 
 typedef struct t_data{
     float * sine_table;
@@ -23,11 +23,13 @@ int nano_sleep(int nsec) {
         return 0;
 }
 
-float *  create_sine_table(float * table){
+float *  create_sine_table(float * table, float x_f){
     table = malloc(TABLE_SIZE * sizeof(float));
     int i;
+//	post("pintao");
     for(i=0; i<TABLE_SIZE; i++){
         table[i] = sin(2.0*PI*i/TABLE_SIZE);
+//	post("%d   %f",i,table[i]);
     }
         return table;
 }
@@ -65,6 +67,7 @@ typedef struct _mind_sin{
 	t_outlet *out;
 	t_float  x_f;
 	pthread_t thread;
+	//float *tab;
 	sine_data *data;
 } t_mind_sin;
 
@@ -74,8 +77,18 @@ void *mind_sin_new(t_floatarg freq){
 	x->out = outlet_new(&x->x_obj, &s_float);
 	x->x_f = freq;
 	x->data = (sine_data*) malloc(sizeof(sine_data));
-	x->data->sine_table = create_sine_table(x->data->sine_table);
+	x->data->sine_table = create_sine_table(x->data->sine_table, freq);
 	x->data->index=0;
+
+	//x->tab = malloc(TABLE_SIZE * sizeof(float));
+    //int i;
+      //  post("pintao");
+    //for(i=0; i<TABLE_SIZE; i++){
+      //  x->tab[i] = sin(2.0*PI*i*100/TABLE_SIZE);
+       // post("%d   %f",i,x->tab[i]);
+    //}
+
+	//post("pinto");
 	return (void *)x;
 }
 
@@ -86,12 +99,15 @@ static void mind_sin_destroy(t_mind_sin *x){
 void *mind_sin_thread (void * arg){
 	t_mind_sin *x = (t_mind_sin*) arg;
 	float sample;
+	//int n=0;
 	while(1){
-	sample = get_interpolated_freq(x->data,x->x_f ,sys_getsr()); 
+	sample = get_interpolated_freq(x->data,x->x_f ,512); 
 	//post("%f",sample);
+	//sample = x->tab[n];
+	//n=(n+1)%512;
 	outlet_float(x->out,sample);	
 	//sleep(1);
-	nano_sleep(1.0/540.0 * 1e9);
+	nano_sleep(1.0/512.0 * 1e9);
 	}
 	return 0;
 }

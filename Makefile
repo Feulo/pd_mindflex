@@ -4,7 +4,7 @@ cc= gcc
 
 
 .PHONY all:
-all: mindflex mind2sig mind_sin mind_fft mind_rec mind_play mind_filter mind_list mind_max mind_blink
+all: mindflex mind2sig mind_sin mind_fft mind_rec mind_play mind_filter mind_list mind_max mind_blink mind_attention mind_rec_att mind_energy
 mindflex: mindflex.o ThinkGearStreamParser.o
 	$(cc) -shared -lc -lm -lbluetooth -pthread -o $@.pd_linux $^ $(CFLAGS)
 mindflex.o: mindflex.c m_pd.h
@@ -54,6 +54,18 @@ mind_blink: mind_blink.o
 	$(cc) -shared -o $@.pd_linux $^ $(CFLAGS)
 mind_blink.o: mind_blink.c m_pd.h 
 	$(cc) -DPD -fPIC $(CFLAGS) -c mind_blink.c
+mind_attention: mind_attention.o 
+	$(cc) -shared -o $@.pd_linux $^ $(CFLAGS)
+mind_attention.o: mind_attention.c m_pd.h 
+	$(cc) -DPD -fPIC $(CFLAGS) -c mind_attention.c
+mind_rec_att: mind_rec_att.o 
+	$(cc) -shared -o $@.pd_linux $^ $(CFLAGS)
+mind_rec_att.o: mind_rec_att.c m_pd.h 
+	$(cc) -DPD -fPIC $(CFLAGS) -c mind_rec_att.c
+mind_energy: mind_energy.o 
+	$(cc) -shared -o $@.pd_linux $^ $(CFLAGS)
+mind_energy.o: mind_energy.c m_pd.h 
+	$(cc) -DPD -fPIC $(CFLAGS) -c mind_energy.c
 .PHONY clean:
 clean:
 	$(RM) *.pd_linux *.o

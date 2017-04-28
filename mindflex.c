@@ -61,7 +61,7 @@ void handleDataValueFunc(unsigned char extendedCodeLevel, unsigned char code, un
 			case(0x83):
 				for(int i=0; i<valueLength; i=i+3){
 					int power =0;
-					power = (value[i]<<16) | (value[i+1]<<8) |value[i+2];
+					power = value[i]*256*256 + value[i+1]*256+value[i+2];
 					outlet_float(x->out_eeg_bands[i/3],power);
 			}		
 				break;

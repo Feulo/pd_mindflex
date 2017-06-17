@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
+
 static t_class *mind_rec_att_class;
 
 typedef struct _mind_rec_att{

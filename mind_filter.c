@@ -73,13 +73,13 @@ void *mind_filter_new(t_symbol *arg){
 									if(strcmp(arg->s_name,"beta")==0){
 										x->a = a_beta;
 										x->b = b_beta;
-										x->size = 11;
+										x->size = 13;
 									}
 									else{
 										if(strcmp(arg->s_name,"alpha")==0){
 											x->a = a_alpha;
 											x->b = b_alpha;
-											x->size = 9;
+											x->size = 11;
 										}
 										else{
 											post("Couldn't create: EEG Band not found");

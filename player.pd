@@ -1,0 +1,17 @@
+#N canvas 0 48 1364 702 10;
+#X floatatom 107 214 15 0 0 0 - - -, f 15;
+#X obj 107 82 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 107 120 mind_play /home/feulo/pd-externals/mindflex/teste_fisica_raw/teste_9_sweep_linear_1_19v.RAW
+;
+#X obj 107 176 / 2048;
+#X obj 107 247 mind_rec /home/feulo/pd-externals/mindflex/teste_fisica_raw/teste9_norm.txt
+;
+#X msg 258 217 start;
+#X msg 340 212 stop;
+#X connect 0 0 4 0;
+#X connect 1 0 2 0;
+#X connect 2 0 3 0;
+#X connect 3 0 0 0;
+#X connect 5 0 4 0;
+#X connect 6 0 4 0;

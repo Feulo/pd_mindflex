@@ -2,7 +2,26 @@ CFLAGS = -DPD -fPIC -Wall -O2 -std=c99
 cc= gcc
 
 .PHONY all:
-all: mindflex mind2sig mind_sin mind_fft mind_rec mind_play mind_filter mind_list mind_max mind_blink mind_attention mind_rec_att mind_energy mind_sequence
+all: mindflex mind2sig mind_sin mind_fft mind_rec mind_play mind_filter mind_list mind_blink mind_attention mind_rec_att mind_energy mind_sequence
+.PHONY extras:
+extras: modcounter mind_max mind_lp counter acumulator
+
+counter: counter.o  
+	$(cc) -shared -o $@.pd_linux $^ 
+counter.o: counter.c m_pd.h
+	$(cc) $(CFLAGS) -c counter.c
+acumulator: acumulator.o  
+	$(cc) -shared -o $@.pd_linux $^ 
+acumulator.o: acumulator.c m_pd.h
+	$(cc) $(CFLAGS) -c acumulator.c
+mind_lp: mind_lp.o  
+	$(cc) -shared -o $@.pd_linux $^ 
+mind_lp.o: mind_lp.c m_pd.h
+	$(cc) $(CFLAGS) -c mind_lp.c
+modcounter: modcounter.o filter.h
+	$(cc) -shared -o $@.pd_linux $^ 
+modcounter.o: modcounter.c m_pd.h
+	$(cc) $(CFLAGS) -c modcounter.c
 mindflex: mindflex.o ThinkGearStreamParser.o
 	$(cc) -shared -o $@.pd_linux $^ -lbluetooth -lpthread
 mindflex.o: mindflex.c m_pd.h

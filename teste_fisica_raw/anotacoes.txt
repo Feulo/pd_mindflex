@@ -1,0 +1,6 @@
+divisor de tensão 20.1/16.10 mV media de 8 instantes para calcular o menor
+
+dados do gerador 1.39 v a 10hz clip (1.735341615 mV convertido)
+
+
+1.206v = 1900

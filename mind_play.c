@@ -51,7 +51,7 @@ void *mind_play_thread (void * arg){
 	while(1){
 		for(int i=0;i<sizeof(float);i++){
 			c[i] = fgetc(x->fp);
-			if(c[i]==EOF)
+			if(c[0]==EOF)
 				return 0;	
 		}
 		temp = (float*)c;
